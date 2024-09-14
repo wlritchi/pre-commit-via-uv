@@ -1,0 +1,50 @@
+[project]
+name = "pre-commit-via-uv"
+version = "1.1.0"
+description = "pre-commit hooks to run tools from the project environment with uv"
+authors = [
+    {name = "Luc Ritchie", email = "luc.ritchie@gmail.com"},
+]
+requires-python = ">=3.9"
+dependencies = [
+    "identify>=1.0.0"
+]
+license = "CC0-1.0"
+readme = "README.md"
+packages = [
+    { include = "pre_commit_via_uv" }
+]
+
+[project.scripts]
+uv-run-on-all-files = "pre_commit_via_uv.uv_run_on_all_files:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch]
+
+[tool.pyright]
+pythonVersion = "3.9"
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+ignore = ["E402", "E501", "C901"]
+select = [
+    "B",
+    "C",
+    "E",
+    "F",
+    "I",
+    "W",
+    "RUF100",
+]
+
+[tool.uv]
+dev-dependencies = [
+    "pre-commit>=3.8.0,<4.0.0",
+    "pyright>=1.1.380,<2.0.0",
+    "ruff>=0.6.5,<0.7.0",
+]
