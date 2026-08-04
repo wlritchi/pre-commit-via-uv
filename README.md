@@ -46,6 +46,7 @@ the upstream or most commonly used community hook for that tool, if it exists.
 
 - [mypy](https://www.mypy-lang.org/)
 - [pyright](https://github.com/Microsoft/pyright)
+- [ty](https://github.com/astral-sh/ty)
 
 ## Hook-specific notes
 
@@ -62,6 +63,7 @@ especially on larger repos. Supported hooks are:
 
 - `mypy-all-files`
 - `pyright-all-files`
+- `ty-all-files`
 
 Note that these hooks are not currently tested on Windows, and may not correctly
 invoke hooks due to shebang weirdness. PRs are welcome!
@@ -93,3 +95,16 @@ cause type errors in another file (for example, refactoring an interface but
 forgetting to update one implementation of it), the default Pyright hook will
 not warn you about this error. See the section on all-files hooks for an
 alternative (but note the performance impact).
+
+### ty
+
+The [upstream ty hook](https://github.com/astral-sh/ty-pre-commit) checks the
+whole project directory on every commit, which includes untracked files. The
+hooks in this repo instead follow the same pattern as the other type checkers:
+the `ty` hook checks only the files changed in the current commit, and the
+`ty-all-files` hook checks all tracked files (see the section on all-files
+hooks). As with the other type checkers, the changed-files hook can miss errors
+that your changes cause in other files. Note also that where the upstream hook
+pins a ty version in the hook definition, these hooks resolve ty from your
+project environment, so add ty to your dev dependencies to control the
+version.

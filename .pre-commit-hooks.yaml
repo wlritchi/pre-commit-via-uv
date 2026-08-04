@@ -22,6 +22,27 @@
   require_serial: true
   additional_dependencies: []
   minimum_pre_commit_version: 2.9.2
+# https://github.com/astral-sh/ty-pre-commit/blob/main/.pre-commit-hooks.yaml
+- id: ty
+  name: ty
+  description: "Run 'ty' for extremely fast Python type checking"
+  entry: uv run ty check
+  language: system
+  types_or: [python, pyi, jupyter]
+  require_serial: true
+  additional_dependencies: []
+  minimum_pre_commit_version: 2.9.2
+- id: ty-all-files
+  name: ty (all files)
+  description: "Run 'ty' for extremely fast Python type checking (all files)"
+  entry: uv-run-on-all-files
+  args: ["ty check", python, pyi, jupyter]
+  language: python
+  language_version: python3
+  types_or: [python, pyi, jupyter]
+  require_serial: true
+  additional_dependencies: []
+  minimum_pre_commit_version: 2.9.2
 # https://github.com/RobertCraigie/pyright-python/blob/main/.pre-commit-hooks.yaml
 - id: pyright
   name: pyright

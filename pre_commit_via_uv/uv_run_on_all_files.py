@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
+import shlex
 import subprocess
 import sys
 from os import environ
@@ -11,7 +12,10 @@ from identify.identify import tags_from_path
 
 def _parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser()
-    parser.add_argument("tool", help="Executable of the tool to run")
+    parser.add_argument(
+        "tool",
+        help="Executable of the tool to run, optionally with arguments (e.g. 'ty check')",
+    )
     parser.add_argument("types", nargs="+")
     return parser.parse_args()
 
@@ -40,7 +44,7 @@ def main():
         [
             "uv",
             "run",
-            args.tool,
+            *shlex.split(args.tool),
             *paths_matching_type,
         ],
         env=env,
